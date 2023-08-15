@@ -15,7 +15,7 @@ body {
   font-size: 2rem;
   height: 100vh;
   color: #222;
-  background-color: #ebeed1;
+  background-color: #cff6c5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,6 +31,7 @@ body {
   border-radius: 25px;
   border: 2px solid #222;
   outline: 2px solid #222;
+  background-color: #d7fce6;
   outline-offset: 1.2rem;
 }
 

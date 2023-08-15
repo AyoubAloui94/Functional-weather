@@ -77,7 +77,9 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>Functional Weather</h1>
+      <h1>
+        <span>🌤️</span>Functional Weather
+      </h1>
       <input type="text" value={location} onChange={e => setLocation(e.target.value)} placeholder="Search for location" />
       {/* <button onClick={callback}>Get weather</button> */}
       {isLoading && <p className="loader">Loading...</p>}
