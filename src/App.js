@@ -42,7 +42,7 @@ export default function App() {
 
   const callback = useCallback(
     async function fetchWeather() {
-      if (location.length < 2) return
+      if (location.length < 2) return setWeather({})
       try {
         setIsLoading(true)
         // 1) Getting location (geocoding)
@@ -106,7 +106,7 @@ function Day({ date, max, min, code, isToday }) {
       <span>{getWeatherIcon(code)}</span>
       <p>{isToday ? "Today" : formatDay(date)}</p>
       <p>
-        {Math.floor(min)}&deg; &mdash; <strong>{Math.ceil(max)}&deg;</strong>
+        {Math.round(min)}&deg; &mdash; <strong>{Math.round(max)}&deg;</strong>
       </p>
     </li>
   )
