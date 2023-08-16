@@ -97,7 +97,7 @@ export default function App() {
       </h1>
       <input type="text" value={location} onChange={e => setLocation(e.target.value)} placeholder="Search for location" />
       <button onClick={handleLocation} className="btn">
-        📌 My location
+        <span>📌</span>My Location
       </button>
       {isLoading && <p className="loader">Loading...</p>}
       {weather.weathercode?.length && <Weather displayLocation={displayLocation} weather={weather} />}
