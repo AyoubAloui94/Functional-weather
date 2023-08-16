@@ -78,8 +78,8 @@ input:focus {
     word-spacing: 0;
   }
   .app {
-    width: 43rem;
-    height: 100%;
+    border: none;
+    outline: none;
   }
   .weather {
     display: grid;
@@ -88,6 +88,10 @@ input:focus {
     gap: 1rem;
     justify-content: center;
     align-content: start;
+  }
+  .day {
+    padding: 1.6rem 0 2rem;
+    width: 11rem;
   }
 }
 
