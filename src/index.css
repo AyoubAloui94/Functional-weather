@@ -116,7 +116,8 @@ input:focus {
 
 @media screen and (max-width: 780px) {
   body {
-    margin: 0.5rem;
+    margin: 1rem 1rem;
+    height: auto;
   }
   h1 {
     font-size: 3rem;
