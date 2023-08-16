@@ -78,6 +78,7 @@ input:focus {
     word-spacing: 0;
   }
   .app {
+    width: 44rem;
     border: none;
     outline: none;
   }
