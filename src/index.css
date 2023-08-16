@@ -68,6 +68,29 @@ input:focus {
   gap: 2.4rem;
 }
 
+@media screen and (max-width: 780px) {
+  body {
+    height: auto;
+  }
+  h1 {
+    font-size: 3rem;
+    letter-spacing: 0;
+    word-spacing: 0;
+  }
+  .app {
+    width: 43rem;
+    height: 100%;
+  }
+  .weather {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    justify-content: center;
+    align-content: start;
+  }
+}
+
 .day {
   border-radius: 15px;
   background-color: #c2eef8;
