@@ -68,34 +68,6 @@ input:focus {
   gap: 2.4rem;
 }
 
-@media screen and (max-width: 780px) {
-  body {
-    height: auto;
-  }
-  h1 {
-    font-size: 3rem;
-    letter-spacing: 0;
-    word-spacing: 0;
-  }
-  .app {
-    width: 44rem;
-    border: none;
-    outline: none;
-  }
-  .weather {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
-    justify-content: center;
-    align-content: center;
-  }
-  .day {
-    padding: 1.1rem 0 2rem;
-    width: 11rem;
-  }
-}
-
 .day {
   border-radius: 15px;
   background-color: #c2eef8;
@@ -140,4 +112,32 @@ input:focus {
 .btn:hover {
   background-color: #60d561;
   transition-duration: 0.5s;
+}
+
+@media screen and (max-width: 780px) {
+  body {
+    margin: 0.5rem;
+  }
+  h1 {
+    font-size: 3rem;
+    letter-spacing: 0;
+    word-spacing: 0;
+  }
+  .app {
+    width: 44rem;
+    border: none;
+    outline: none;
+  }
+  .weather {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    justify-content: center;
+    align-content: center;
+  }
+  .day {
+    padding: 1.1rem 0 2rem;
+    width: 11rem;
+  }
 }
