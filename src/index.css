@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: "Cinzel Decorative", cursive;
+  font-family: cursive;
   font-size: 2rem;
   height: 100vh;
   color: #222;
@@ -93,4 +93,23 @@ input:focus {
 .loader {
   font-size: 2.4rem;
   font-weight: 700;
+}
+
+.btn {
+  font-size: 1.4rem;
+  font-family: inherit;
+  padding: 1rem;
+  border-radius: 15px;
+  border: none;
+  font-weight: 600;
+  background-color: #92f793;
+
+  vertical-align: center;
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+
+.btn:hover {
+  background-color: #60d561;
+  transition-duration: 0.5s;
 }
