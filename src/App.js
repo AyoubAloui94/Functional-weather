@@ -55,7 +55,7 @@ export default function App() {
     })
   }
 
-  const callback = useCallback(
+  const fetchWeather = useCallback(
     async function fetchWeather() {
       if (location.length < 2) return setWeather({})
       try {
@@ -84,10 +84,10 @@ export default function App() {
 
   useEffect(
     function () {
-      callback()
+      fetchWeather()
       localStorage.setItem("location", location)
     },
-    [callback, location]
+    [fetchWeather, location]
   )
 
   return (
