@@ -75,7 +75,7 @@ export default function App() {
         // 2) Getting actual weather
         const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current=temperature_2m,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m&hourly=temperature_2m,weathercode&forecast_days=14`)
         const weatherData = await weatherRes.json()
-        console.log(weatherData)
+
         setWeather(weatherData.daily)
         setTodayWeather(weatherData.current)
       } catch (err) {

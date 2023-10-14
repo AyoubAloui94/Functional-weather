@@ -13,13 +13,13 @@ html {
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 2rem;
-  height: 100vh;
+  height: auto;
   color: #222;
   background-color: #e6f8e1;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10rem 10rem;
+  margin: 5rem 10rem;
 }
 
 .app {
