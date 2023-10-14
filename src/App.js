@@ -41,6 +41,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [displayLocation, setDisplayLocation] = useState("")
   const [weather, setWeather] = useState({})
+  const [todayWeather, setTodayWeather] = useState({})
 
   function handleLocation() {
     if (!navigator.geolocation) return
@@ -72,10 +73,11 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min&forecast_days=14`)
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current=temperature_2m,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m&hourly=temperature_2m,weathercode&forecast_days=14`)
         const weatherData = await weatherRes.json()
         console.log(weatherData)
         setWeather(weatherData.daily)
+        setTodayWeather(weatherData.current)
       } catch (err) {
         console.error(err)
       } finally {
@@ -103,26 +105,45 @@ export default function App() {
         <span>📌</span>My Location
       </button>
       {isLoading && <p className="loader">Loading...</p>}
-      {weather.weathercode?.length && <Weather displayLocation={displayLocation} weather={weather} />}
-    </div>
-  )
-}
-
-function Weather({ displayLocation, weather }) {
-  const { weathercode: codes, time: dates, temperature_2m_max: max, temperature_2m_min: min } = weather
-  return (
-    <div>
-      <h2>{displayLocation}</h2>
-      <div className="weather">
-        {dates.map((date, i) => (
-          <Day max={max.at(i)} key={date} min={min.at(i)} date={date} code={codes.at(i)} isToday={i === 0} />
-        ))}
+      <div>
+        <h2>{displayLocation}</h2>
+        {todayWeather.interval ? <Today todayWeather={todayWeather} /> : ""}
+        {weather.weathercode?.length && <Weather weather={weather} />}
       </div>
     </div>
   )
 }
 
-function Day({ date, max, min, code, isToday }) {
+function Today({ todayWeather }) {
+  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure } = todayWeather
+  return (
+    <div className="today">
+      <p>Now</p>
+      <span className="weather-icon">{getWeatherIcon(weathercode)}</span>
+
+      <p>Temperature: {Math.round(temperature)}&deg;</p>
+      <p>Humidity: {humidity}%</p>
+      <p>Wind Speed: {windSpeed} km/h</p>
+      <p>Pressure : {Math.round(pressure)} mbar</p>
+    </div>
+  )
+}
+
+function Weather({ weather }) {
+  const { weathercode: codes, time: dates, temperature_2m_max: max, temperature_2m_min: min, uv_index_max: uv } = weather
+  return (
+    <>
+      <h3>14-day forecast</h3>
+      <div className="weather">
+        {dates.map((date, i) => (
+          <Day max={max.at(i)} key={date} min={min.at(i)} date={date} code={codes.at(i)} isToday={i === 0} uv={uv.at(i)} />
+        ))}
+      </div>
+    </>
+  )
+}
+
+function Day({ date, max, min, code, isToday, uv }) {
   return (
     <li className="day">
       <span>{getWeatherIcon(code)}</span>
@@ -130,6 +151,7 @@ function Day({ date, max, min, code, isToday }) {
       <p>
         {Math.round(min)}&deg; &mdash; <strong>{Math.round(max)}&deg;</strong>
       </p>
+      <p>UV: {Math.round(uv)}</p>
     </li>
   )
 }

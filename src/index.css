@@ -48,6 +48,11 @@ h2 {
   margin-bottom: 2.4rem;
 }
 
+h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
 input {
   border-radius: 20px;
   font-family: inherit;
@@ -57,10 +62,31 @@ input {
   padding: 1.6rem 3.2rem;
   border: none;
   width: 32rem;
+  text-align: center;
 }
 
 input:focus {
   outline: 2px solid #222;
+}
+
+.today {
+  display: flex;
+  border-radius: 15px;
+  background-color: #c2eef8;
+  padding: 1.6rem 0 2rem;
+  width: 25rem;
+  align-self: center;
+  margin: 3rem auto;
+
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  cursor: pointer;
+  padding: 2rem;
+}
+
+.weather-icon {
+  font-size: 5.2rem;
 }
 
 /* .weather {
