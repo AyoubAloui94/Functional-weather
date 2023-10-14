@@ -106,9 +106,13 @@ export default function App() {
       </button>
       {isLoading && <p className="loader">Loading...</p>}
       <div>
-        <h2>{displayLocation}</h2>
-        {todayWeather.interval ? <Today todayWeather={todayWeather} /> : ""}
-        {weather.weathercode?.length && <Weather weather={weather} />}
+        {weather.weathercode?.length && (
+          <>
+            <h2>{displayLocation}</h2>
+            <Today todayWeather={todayWeather} />
+            <Weather weather={weather} />
+          </>
+        )}
       </div>
     </div>
   )
