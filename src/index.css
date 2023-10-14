@@ -19,6 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10rem 10rem;
 }
 
 .app {
@@ -62,17 +63,26 @@ input:focus {
   outline: 2px solid #222;
 }
 
-.weather {
+/* .weather {
   list-style: none;
   display: flex;
   gap: 2.4rem;
+} */
+
+.weather {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  justify-content: center;
+  align-content: center;
 }
 
 .day {
   border-radius: 15px;
   background-color: #c2eef8;
   padding: 1.6rem 0 2rem;
-  width: 12.8rem;
+  width: 13.5rem;
 
   display: flex;
   flex-direction: column;
@@ -114,7 +124,7 @@ input:focus {
   transition-duration: 0.5s;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 980px) {
   body {
     margin: 1rem 1rem;
     height: auto;
@@ -140,5 +150,13 @@ input:focus {
   .day {
     padding: 1.1rem 0 2rem;
     width: 11rem;
+  }
+
+  .day span {
+    font-size: 4.2rem;
+  }
+
+  .day p {
+    font-size: 1.6rem;
   }
 }

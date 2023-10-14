@@ -27,8 +27,10 @@ function convertToFlag(countryCode) {
 }
 
 function formatDay(dateStr) {
-  return new Intl.DateTimeFormat("en", {
-    weekday: "short"
+  return new Intl.DateTimeFormat("en-GB", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short"
   }).format(new Date(dateStr))
 }
 
@@ -70,8 +72,9 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min`)
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min&forecast_days=14`)
         const weatherData = await weatherRes.json()
+        console.log(weatherData)
         setWeather(weatherData.daily)
       } catch (err) {
         console.error(err)
@@ -110,11 +113,11 @@ function Weather({ displayLocation, weather }) {
   return (
     <div>
       <h2>{displayLocation}</h2>
-      <ul className="weather">
+      <div className="weather">
         {dates.map((date, i) => (
           <Day max={max.at(i)} key={date} min={min.at(i)} date={date} code={codes.at(i)} isToday={i === 0} />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
