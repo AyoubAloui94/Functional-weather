@@ -65,8 +65,9 @@ export default function App() {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [displayLocation, setDisplayLocation] = useState("")
-  const [weather, setWeather] = useState({})
-  const [todayWeather, setTodayWeather] = useState({})
+  const [dailyWeather, setDailyWeather] = useState({})
+  const [currentWeather, setCurrentWeather] = useState({})
+  const [hourlyWeather, setHourlyWeather] = useState({})
 
   function handleLocation() {
     if (!navigator.geolocation) return
@@ -85,7 +86,7 @@ export default function App() {
 
   const fetchWeather = useCallback(
     async function fetchWeather() {
-      if (location.length < 2) return setWeather({})
+      if (location.length < 2) return setDailyWeather({})
       try {
         setIsLoading(true)
         // 1) Getting location (geocoding)
@@ -98,11 +99,11 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current=temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index&hourly=temperature_2m,weathercode&forecast_days=14`)
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant&current=temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index&hourly=temperature_2m,weathercode&forecast_days=14`)
         const weatherData = await weatherRes.json()
         console.log(weatherData)
-        setWeather(weatherData.daily)
-        setTodayWeather(weatherData.current)
+        setDailyWeather(weatherData.daily)
+        setCurrentWeather(weatherData.current)
       } catch (err) {
         console.error(err)
       } finally {
@@ -131,11 +132,11 @@ export default function App() {
       </button>
       {isLoading && <p className="loader">Loading...</p>}
       <div>
-        {weather.weathercode?.length && (
+        {dailyWeather.weathercode?.length && (
           <>
             <h2>{displayLocation}</h2>
-            <Today todayWeather={todayWeather} />
-            <Weather weather={weather} />
+            <Today weather={currentWeather} />
+            <DailyWeather weather={dailyWeather} />
           </>
         )}
       </div>
@@ -143,8 +144,8 @@ export default function App() {
   )
 }
 
-function Today({ todayWeather }) {
-  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel } = todayWeather
+function Today({ weather }) {
+  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel } = weather
   return (
     <div className="today">
       <p>Now</p>
@@ -156,28 +157,32 @@ function Today({ todayWeather }) {
       <p>
         Wind: {getWindDirection(windDirection)} {windSpeed} km/h
       </p>
-      <p>Pressure : {Math.round(pressure)} mbar</p>
+      <p>Pressure: {Math.round(pressure)} mbar</p>
       <p>Chance of rain: {chanceOfRain}%</p>
-      <p>UV: {uvIndex}</p>
+      <p>UV: {Math.round(uvIndex)}</p>
     </div>
   )
 }
 
-function Weather({ weather }) {
-  const { weathercode: codes, time: dates, temperature_2m_max: max, temperature_2m_min: min, uv_index_max: uv } = weather
+function HourlyWeather() {
+  return <div>hourly</div>
+}
+
+function DailyWeather({ weather }) {
+  const { weathercode: codes, time: dates, temperature_2m_max: max, temperature_2m_min: min, precipitation_probability_max: rain, windspeed_10m_max: windSpeed, winddirection_10m_dominant: windDirection } = weather
   return (
     <>
       <h3>14-day forecast</h3>
       <div className="weather">
         {dates.map((date, i) => (
-          <Day max={max.at(i)} key={date} min={min.at(i)} date={date} code={codes.at(i)} isToday={i === 0} uv={uv.at(i)} />
+          <Day max={max.at(i)} key={date} min={min.at(i)} date={date} code={codes.at(i)} isToday={i === 0} rain={rain.at(i)} windSpeed={windSpeed.at(i)} windDirection={windDirection.at(i)} />
         ))}
       </div>
     </>
   )
 }
 
-function Day({ date, max, min, code, isToday, uv }) {
+function Day({ date, max, min, code, isToday, rain, windSpeed, windDirection }) {
   return (
     <li className="day">
       <span>{getWeatherIcon(code)}</span>
@@ -185,7 +190,10 @@ function Day({ date, max, min, code, isToday, uv }) {
       <p>
         {Math.round(min)}&deg; &mdash; <strong>{Math.round(max)}&deg;</strong>
       </p>
-      <p>UV: {Math.round(uv)}</p>
+      <p>
+        {getWindDirection(windDirection)} {windSpeed} km/h
+      </p>
+      <p>Rain: {rain !== null ? `${rain}%` : "--"}</p>
     </li>
   )
 }
