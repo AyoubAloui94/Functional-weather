@@ -1,5 +1,30 @@
 import { useCallback, useEffect, useState } from "react"
 
+function getWindDirection(direction) {
+  const windDirections = new Map([
+    [[348.75, 11.25], "N"],
+    [[11.25, 33.75], "NNE"],
+    [[33.75, 56.25], "NE"],
+    [[56.25, 78.75], "ENE"],
+    [[78.75, 101.25], "E"],
+    [[101.25, 123.75], "ESE"],
+    [[123.75, 146.25], "SE"],
+    [[146.25, 168.75], "SSE"],
+    [[168.75, 191.25], "S"],
+    [[191.25, 213.75], "SSW"],
+    [[213.75, 236.25], "SW"],
+    [[236.25, 258.75], "WSW"],
+    [[258.75, 281.25], "W"],
+    [[281.25, 303.75], "WNW"],
+    [[303.75, 326.25], "NW"],
+    [[326.25, 348.75], "NNW"]
+  ])
+
+  const arr = [...windDirections.keys()].find(key => key[0] < direction && direction < key[1])
+  if (!arr) return "NOT FOUND"
+  return windDirections.get(arr)
+}
+
 function getWeatherIcon(wmoCode) {
   const icons = new Map([
     [[0], "☀️"],
@@ -73,9 +98,9 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current=temperature_2m,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m&hourly=temperature_2m,weathercode&forecast_days=14`)
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current=temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index&hourly=temperature_2m,weathercode&forecast_days=14`)
         const weatherData = await weatherRes.json()
-
+        console.log(weatherData)
         setWeather(weatherData.daily)
         setTodayWeather(weatherData.current)
       } catch (err) {
@@ -119,7 +144,7 @@ export default function App() {
 }
 
 function Today({ todayWeather }) {
-  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure } = todayWeather
+  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel } = todayWeather
   return (
     <div className="today">
       <p>Now</p>
@@ -127,8 +152,13 @@ function Today({ todayWeather }) {
 
       <p>Temperature: {Math.round(temperature)}&deg;</p>
       <p>Humidity: {humidity}%</p>
-      <p>Wind Speed: {windSpeed} km/h</p>
+      <p>Real feel: {Math.round(realFeel)}&deg;</p>
+      <p>
+        Wind: {getWindDirection(windDirection)} {windSpeed} km/h
+      </p>
       <p>Pressure : {Math.round(pressure)} mbar</p>
+      <p>Chance of rain: {chanceOfRain}%</p>
+      <p>UV: {uvIndex}</p>
     </div>
   )
 }
