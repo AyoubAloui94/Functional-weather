@@ -25,6 +25,23 @@ function getWindDirection(direction) {
   return windDirections.get(arr)
 }
 
+function getWindDirectionArrow(direction) {
+  const windDirections = new Map([
+    [[348.75, 11.25], "\u2193"],
+    [[11.25, 78.75], "\u2199"],
+    [[78.75, 101.25], "\u2190"],
+    [[101.25, 168.75], "\u2196"],
+    [[168.75, 191.25], "\u2191"],
+    [[191.25, 258.75], "\u2197"],
+    [[258.75, 281.25], "\u2192"],
+    [[281.25, 348.75], "\u2198"]
+  ])
+
+  const arr = [...windDirections.keys()].find(key => key[0] < direction && direction < key[1])
+  if (!arr) return "NOT FOUND"
+  return windDirections.get(arr)
+}
+
 function getWeatherIcon(wmoCode) {
   const icons = new Map([
     [[0], "☀️"],
@@ -191,7 +208,7 @@ function Day({ date, max, min, code, isToday, rain, windSpeed, windDirection }) 
         {Math.round(min)}&deg; &mdash; <strong>{Math.round(max)}&deg;</strong>
       </p>
       <p>
-        {getWindDirection(windDirection)} {windSpeed} km/h
+        {getWindDirectionArrow(windDirection)} {windSpeed} km/h
       </p>
       <p>Rain: {rain !== null ? `${rain}%` : "--"}</p>
     </li>
