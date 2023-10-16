@@ -117,8 +117,12 @@ input:focus {
   cursor: pointer;
 }
 
-.day span {
+.weather-icon {
   font-size: 5.2rem;
+}
+
+.wind-direction {
+  font-size: 2rem;
 }
 
 .day.important {
@@ -176,6 +180,22 @@ input:focus {
   .day {
     padding: 1.1rem 0 2rem;
     width: 12rem;
+  }
+
+  .today {
+    display: flex;
+    border-radius: 15px;
+    background-color: #c2eef8;
+    padding: 1.6rem 0 2rem;
+    width: 38rem;
+    align-self: center;
+    margin: 3rem auto;
+
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    cursor: pointer;
+    padding: 2rem;
   }
 
   .day span {

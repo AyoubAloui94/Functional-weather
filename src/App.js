@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 
 function getWindDirection(direction) {
   const windDirections = new Map([
-    [[348.75, 11.25], "N"],
+    [[-11.25, 11.25], "N"],
     [[11.25, 33.75], "NNE"],
     [[33.75, 56.25], "NE"],
     [[56.25, 78.75], "ENE"],
@@ -20,14 +20,16 @@ function getWindDirection(direction) {
     [[326.25, 348.75], "NNW"]
   ])
 
-  const arr = [...windDirections.keys()].find(key => key[0] < direction && direction < key[1])
+  const modulatedDirection = direction <= 348.75 ? direction : direction - 360
+
+  const arr = [...windDirections.keys()].find(key => key[0] <= modulatedDirection && modulatedDirection <= key[1])
   if (!arr) return "NOT FOUND"
   return windDirections.get(arr)
 }
 
 function getWindDirectionArrow(direction) {
   const windDirections = new Map([
-    [[348.75, 11.25], "\u2193"],
+    [[-11.25, 11.25], "\u2193"],
     [[11.25, 78.75], "\u2199"],
     [[78.75, 101.25], "\u2190"],
     [[101.25, 168.75], "\u2196"],
@@ -37,7 +39,9 @@ function getWindDirectionArrow(direction) {
     [[281.25, 348.75], "\u2198"]
   ])
 
-  const arr = [...windDirections.keys()].find(key => key[0] < direction && direction < key[1])
+  const modulatedDirection = direction <= 348.75 ? direction : direction - 360
+
+  const arr = [...windDirections.keys()].find(key => key[0] <= modulatedDirection && modulatedDirection <= key[1])
   if (!arr) return "NOT FOUND"
   return windDirections.get(arr)
 }
@@ -168,7 +172,9 @@ function Today({ weather }) {
       <p>Now</p>
       <span className="weather-icon">{getWeatherIcon(weathercode)}</span>
 
-      <p>Temperature: {Math.round(temperature)}&deg;</p>
+      <p>
+        Temperature: {Math.round(temperature)}&deg; {getWindDirectionArrow(11.25)}
+      </p>
       <p>Humidity: {humidity}%</p>
       <p>Real feel: {Math.round(realFeel)}&deg;</p>
       <p>
@@ -202,13 +208,13 @@ function DailyWeather({ weather }) {
 function Day({ date, max, min, code, isToday, rain, windSpeed, windDirection }) {
   return (
     <li className="day">
-      <span>{getWeatherIcon(code)}</span>
+      <span className="weather-icon">{getWeatherIcon(code)}</span>
       <p>{isToday ? "Today" : formatDay(date)}</p>
       <p>
         {Math.round(min)}&deg; &mdash; <strong>{Math.round(max)}&deg;</strong>
       </p>
       <p>
-        {getWindDirectionArrow(windDirection)} {windSpeed} km/h
+        <span className="wind-direction">{getWindDirectionArrow(windDirection)}</span> {windSpeed} km/h
       </p>
       <p>Rain: {rain !== null ? `${rain}%` : "--"}</p>
     </li>
