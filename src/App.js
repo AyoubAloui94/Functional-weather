@@ -172,9 +172,7 @@ function Today({ weather }) {
       <p>Now</p>
       <span className="weather-icon">{getWeatherIcon(weathercode)}</span>
 
-      <p>
-        Temperature: {Math.round(temperature)}&deg; {getWindDirectionArrow(11.25)}
-      </p>
+      <p>Temperature: {Math.round(temperature)}&deg;</p>
       <p>Humidity: {humidity}%</p>
       <p>Real feel: {Math.round(realFeel)}&deg;</p>
       <p>
