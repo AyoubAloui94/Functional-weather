@@ -263,7 +263,7 @@ input:focus {
     display: flex;
     overflow: auto;
     flex-direction: row;
-    width: 35rem;
+    width: 37rem;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
   }
