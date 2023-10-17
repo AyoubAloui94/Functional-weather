@@ -208,6 +208,7 @@ input:focus {
 @media screen and (max-width: 980px) {
   body {
     margin: 1rem 1rem;
+    padding: 1rem 0;
     height: auto;
   }
   h1 {
@@ -216,7 +217,7 @@ input:focus {
     word-spacing: 0;
   }
   .app {
-    width: 44rem;
+    width: 40rem;
     border: none;
     outline: none;
   }
@@ -238,7 +239,7 @@ input:focus {
     border-radius: 15px;
     background-color: #c2eef8;
     padding: 1.6rem 0 2rem;
-    width: 38rem;
+    width: 35rem;
     align-self: center;
     margin: 3rem auto;
 
@@ -262,7 +263,7 @@ input:focus {
     display: flex;
     overflow: auto;
     flex-direction: row;
-    width: 40rem;
+    width: 35rem;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
   }
