@@ -22,6 +22,10 @@ body {
   margin: 5rem 10rem;
 }
 
+li {
+  list-style: none;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -95,9 +99,55 @@ input:focus {
   gap: 2.4rem;
 } */
 
+.container {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+  flex-direction: row;
+  width: 115rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: rgb(214, 214, 214);
+  border-radius: 20px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: rgb(180, 180, 180);
+  border-radius: 20px;
+}
+
+.hourly {
+  min-width: min-content;
+  gap: 1rem;
+  display: flex;
+}
+
+.hour {
+  border-radius: 15px;
+  background-color: #c2eef8;
+  padding: 1rem 0 2rem;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.hour span {
+  font-size: 3rem;
+}
+
 .weather {
   display: grid;
-
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 1rem;
   justify-content: center;
@@ -204,5 +254,52 @@ input:focus {
 
   .day p {
     font-size: 1.6rem;
+  }
+
+  .container {
+    flex: 1;
+    display: flex;
+    overflow: auto;
+    flex-direction: row;
+    width: 40rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .container::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  .container::-webkit-scrollbar-track {
+    background: rgb(214, 214, 214);
+    border-radius: 20px;
+  }
+
+  .container::-webkit-scrollbar-thumb {
+    background-color: rgb(180, 180, 180);
+    border-radius: 20px;
+  }
+
+  .hourly {
+    min-width: min-content;
+    gap: 1rem;
+    display: flex;
+  }
+
+  .hour {
+    border-radius: 15px;
+    background-color: #c2eef8;
+    padding: 0.8rem 0.5rem;
+    width: 9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .hour span {
+    font-size: 3rem;
   }
 }

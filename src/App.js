@@ -120,11 +120,12 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant&current=temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index&hourly=temperature_2m,weathercode&forecast_days=14`)
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant&current=temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index&hourly=temperature_2m,weathercode,windspeed_10m&forecast_days=14`)
         const weatherData = await weatherRes.json()
-        console.log(weatherData)
+        // console.log(weatherData.hourly)
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
+        setHourlyWeather(weatherData.hourly)
       } catch (err) {
         console.error(err)
       } finally {
@@ -157,6 +158,7 @@ export default function App() {
           <>
             <h2>{displayLocation}</h2>
             <Today weather={currentWeather} />
+            <HourlyWeather weather={hourlyWeather} />
             <DailyWeather weather={dailyWeather} />
           </>
         )}
@@ -167,6 +169,7 @@ export default function App() {
 
 function Today({ weather }) {
   const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel } = weather
+
   return (
     <div className="today">
       <p>Now</p>
@@ -185,8 +188,38 @@ function Today({ weather }) {
   )
 }
 
-function HourlyWeather() {
-  return <div>hourly</div>
+function HourlyWeather({ weather }) {
+  const { weathercode, time, temperature_2m, windspeed_10m } = weather
+
+  const index = time.findIndex(hour => new Date().toISOString() < new Date(hour).toISOString())
+  const hours = time.slice(index - 1, index + 23)
+  const codes = weathercode.slice(index - 1, index + 23)
+  const temperatures = temperature_2m.slice(index - 1, index + 23)
+  const windSpeeds = windspeed_10m.slice(index - 1, index + 23)
+
+  return (
+    <>
+      <h3>24-hour forecast</h3>
+      <div className="container">
+        <div className="hourly">
+          {hours.map((hour, i) => (
+            <Hour key={hour} hour={hour} code={codes.at(i)} temperature={temperatures.at(i)} windSpeed={windSpeeds.at(i)} isNow={i === 0} />
+          ))}
+        </div>
+      </div>
+    </>
+  )
+}
+
+function Hour({ hour, code, temperature, windSpeed, isNow }) {
+  return (
+    <li className="hour">
+      <span>{getWeatherIcon(code)}</span>
+      <p>{Math.round(temperature)}&deg;</p>
+      <p>{windSpeed} km/h</p>
+      <p>{isNow ? "Now" : new Date(hour).toTimeString().slice(0, 5)}</p>
+    </li>
+  )
 }
 
 function DailyWeather({ weather }) {
