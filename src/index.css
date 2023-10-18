@@ -273,7 +273,7 @@ input:focus {
   }
 
   .container::-webkit-scrollbar-track {
-    background: rgb(127, 126, 126);
+    background: rgb(214, 214, 214);
     border-radius: 20px;
   }
 
