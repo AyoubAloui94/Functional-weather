@@ -191,17 +191,38 @@ function Today({ weather }) {
 
       <div className="params-container">
         <div className="today--params">
-          <p>Temperature: {Math.round(temperature)}&deg;</p>
-          <p>Humidity: {humidity}%</p>
-          <p>Real feel: {Math.round(realFeel)}&deg;</p>
-          <p>
-            Wind: {getWindDirection(windDirection)} {windSpeed} km/h
+          <p className="test">
+            <span>Temperature</span>
+            <span className="test--t">{Math.round(temperature)}&deg;</span>
+          </p>
+          <p className="test">
+            <span>Humidity</span>
+            <span className="test--t">{humidity}%</span>
+          </p>
+          <p className="test">
+            <span>Real feel</span>
+            <span className="test--t">{Math.round(realFeel)}&deg;</span>
+          </p>
+          <p className="test">
+            <span>Wind</span>
+            <span className="test--t">
+              {getWindDirection(windDirection)} {windSpeed} km/h
+            </span>
           </p>
         </div>
         <div className="today--params">
-          <p>Pressure: {Math.round(pressure)} mbar</p>
-          <p>Chance of rain: {chanceOfRain}%</p>
-          <p>uv index: {Math.round(uvIndex)}</p>
+          <p className="test">
+            <span>Pressure</span>
+            <span className="test--t">{Math.round(pressure)} mbar</span>
+          </p>
+          <p className="test">
+            <span>Chance of rain</span>
+            <span className="test--t">{chanceOfRain}%</span>
+          </p>
+          <p className="test">
+            <span>UV index</span>
+            <span className="test--t">{Math.round(uvIndex)}</span>
+          </p>
         </div>
       </div>
     </div>

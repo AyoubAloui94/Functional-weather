@@ -88,7 +88,7 @@ input:focus {
   border-radius: 15px;
   background-color: #c2eef8;
   padding: 1.6rem 0 2rem;
-  width: 41rem;
+  width: 48rem;
   align-self: center;
   margin: 3rem auto;
 
@@ -111,15 +111,23 @@ input:focus {
   cursor: pointer;
 }
 
+.test {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.test--t {
+  text-align: right;
+}
+
 .today--params {
   border-radius: 15px;
   background-color: #c2eef8;
-  padding: 1rem 0 1rem 1rem;
-  width: 19.4rem;
+  padding: 1rem 1rem 1rem 1rem;
+  width: 23rem;
 
   display: flex;
   flex-direction: column;
-  align-items: left;
 
   gap: 1.2rem;
   cursor: pointer;
@@ -297,7 +305,7 @@ input:focus {
     border-radius: 15px;
     background-color: #c2eef8;
     padding: 1.6rem 0 2rem;
-    width: 35rem;
+    width: 38rem;
     align-self: center;
     margin: 3rem auto;
 
@@ -307,7 +315,7 @@ input:focus {
     cursor: pointer;
     padding: 2rem;
   }
-
+  /*
   .params-container {
     display: grid;
     border-radius: 15px;
@@ -319,12 +327,34 @@ input:focus {
     gap: 0;
     cursor: pointer;
   }
+*/
+
+  .params-container {
+    display: grid;
+    border-radius: 15px;
+    background-color: #c2eef8;
+
+    width: auto;
+
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    cursor: pointer;
+  }
+
+  .test {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .test--t {
+    text-align: right;
+  }
 
   .today--params {
     border-radius: 15px;
     background-color: #c2eef8;
-    padding: 1rem 0 1rem 1rem;
-    width: 16.9rem;
+    padding: 1rem 1rem 1rem 1rem;
+    width: 17.9rem;
 
     display: flex;
     flex-direction: column;
@@ -334,6 +364,21 @@ input:focus {
     cursor: pointer;
     font-size: 1.6rem;
   }
+
+  /*
+  .today--params {
+    border-radius: 15px;
+    background-color: #c2eef8;
+    padding: 1rem 0 1rem 1rem;
+    width: 16.9rem;
+
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    gap: 1.2rem;
+    cursor: pointer;
+    font-size: 1.6rem;
+  } */
 
   .weather-icon {
     font-size: 4.2rem;
