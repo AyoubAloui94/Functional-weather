@@ -79,15 +79,41 @@ input:focus {
   border-radius: 15px;
   background-color: #c2eef8;
   padding: 1.6rem 0 2rem;
-  width: 25rem;
+  width: 41rem;
   align-self: center;
   margin: 3rem auto;
 
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1.2rem;
   cursor: pointer;
-  padding: 2rem;
+}
+
+.params-container {
+  display: grid;
+  border-radius: 15px;
+  background-color: #c2eef8;
+
+  width: auto;
+
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  cursor: pointer;
+}
+
+.today--params {
+  border-radius: 15px;
+  background-color: #c2eef8;
+  padding: 1rem 0 1rem 1rem;
+  width: 19.4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+  gap: 1.2rem;
+  cursor: pointer;
 }
 
 .weather-icon {
@@ -248,6 +274,32 @@ input:focus {
     gap: 1.2rem;
     cursor: pointer;
     padding: 2rem;
+  }
+
+  .params-container {
+    display: grid;
+    border-radius: 15px;
+    background-color: #c2eef8;
+
+    width: auto;
+
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    cursor: pointer;
+  }
+
+  .today--params {
+    border-radius: 15px;
+    background-color: #c2eef8;
+    padding: 1rem 0 1rem 1rem;
+    width: 16.9rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+
+    gap: 1.2rem;
+    cursor: pointer;
   }
 
   .weather-icon {

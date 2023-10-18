@@ -180,15 +180,21 @@ function Today({ weather }) {
       <p>Now</p>
       <span className="weather-icon">{getWeatherIcon(weathercode)}</span>
 
-      <p>Temperature: {Math.round(temperature)}&deg;</p>
-      <p>Humidity: {humidity}%</p>
-      <p>Real feel: {Math.round(realFeel)}&deg;</p>
-      <p>
-        Wind: {getWindDirection(windDirection)} {windSpeed} km/h
-      </p>
-      <p>Pressure: {Math.round(pressure)} mbar</p>
-      <p>Chance of rain: {chanceOfRain}%</p>
-      <p>UV: {Math.round(uvIndex)}</p>
+      <div className="params-container">
+        <div className="today--params">
+          <p>Temperature: {Math.round(temperature)}&deg;</p>
+          <p>Humidity: {humidity}%</p>
+          <p>Real feel: {Math.round(realFeel)}&deg;</p>
+          <p>
+            Wind: {getWindDirection(windDirection)} {windSpeed} km/h
+          </p>
+        </div>
+        <div className="today--params">
+          <p>Pressure: {Math.round(pressure)} mbar</p>
+          <p>Chance of rain: {chanceOfRain}%</p>
+          <p>UV: {Math.round(uvIndex)}</p>
+        </div>
+      </div>
     </div>
   )
 }
