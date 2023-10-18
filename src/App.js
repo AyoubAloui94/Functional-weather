@@ -166,7 +166,7 @@ export default function App() {
         </span>
         My location
       </button>
-      {isLoading && <p className="loader">Loading...</p>}
+      {isLoading && <Loader />}
       <div>
         {dailyWeather.weathercode?.length && (
           <>
@@ -269,5 +269,13 @@ function Day({ date, max, min, code, isToday, rain, windSpeed, windDirection }) 
       </p>
       <p>Rain: {rain !== null ? `${rain}%` : "--"}</p>
     </li>
+  )
+}
+
+function Loader() {
+  return (
+    <div className="spinnerContainer">
+      <div className="spinner"></div>
+    </div>
   )
 }

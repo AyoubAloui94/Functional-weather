@@ -141,7 +141,7 @@ input:focus {
   overflow: auto;
   flex-direction: row;
   width: 115rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -238,6 +238,28 @@ input:focus {
 .btn:hover {
   background-color: #7bdef4;
   transition-duration: 0.5s;
+}
+
+.spinnerContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, white);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: rotate 1.5s infinite linear;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 @media screen and (max-width: 980px) {
