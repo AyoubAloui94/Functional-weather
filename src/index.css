@@ -15,12 +15,14 @@ body {
   font-size: 2rem;
   height: auto;
   color: #222;
-  background-color: #e6f8e1;
+  background-color: #9be3f3;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 5rem 10rem;
 }
+
+/* #e6f8e1 #d7fce6*/
 
 li {
   list-style: none;
@@ -37,7 +39,7 @@ li {
   border-radius: 25px;
   border: 2px solid #222;
   outline: 2px solid #222;
-  background-color: #d7fce6;
+  background-color: #9be3f3;
   outline-offset: 1.2rem;
 }
 
