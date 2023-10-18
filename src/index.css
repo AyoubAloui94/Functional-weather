@@ -343,17 +343,17 @@ input:focus {
 
   .test {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
   }
 
   .test span {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .test--t {
     text-align: right;
     font-size: 1.4rem !important;
-    margin-top: -5px;
+    margin-top: -2px;
   }
 
   .today--params {
