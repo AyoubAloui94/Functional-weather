@@ -305,7 +305,7 @@ input:focus {
     border-radius: 15px;
     background-color: #c2eef8;
     padding: 1.6rem 0 2rem;
-    width: 38rem;
+    width: 37.8rem;
     align-self: center;
     margin: 3rem auto;
 
@@ -346,8 +346,14 @@ input:focus {
     grid-template-columns: 1fr 1fr;
   }
 
+  .test span {
+    font-size: 1rem;
+  }
+
   .test--t {
     text-align: right;
+    font-size: 1.4rem !important;
+    margin-top: -5px;
   }
 
   .today--params {
@@ -360,7 +366,7 @@ input:focus {
     flex-direction: column;
     align-items: left;
 
-    gap: 1.2rem;
+    gap: 1.6rem;
     cursor: pointer;
     font-size: 1.6rem;
   }
