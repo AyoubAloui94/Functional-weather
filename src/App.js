@@ -192,7 +192,7 @@ function Today({ weather }) {
         <div className="today--params">
           <p>Pressure: {Math.round(pressure)} mbar</p>
           <p>Chance of rain: {chanceOfRain}%</p>
-          <p>UV: {Math.round(uvIndex)}</p>
+          <p>uv index: {Math.round(uvIndex)}</p>
         </div>
       </div>
     </div>
