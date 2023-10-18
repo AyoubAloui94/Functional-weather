@@ -105,9 +105,15 @@ export default function App() {
     })
   }
 
+  const reset = useCallback(function () {
+    setDailyWeather({})
+    setCurrentWeather({})
+    setHourlyWeather({})
+  }, [])
+
   const fetchWeather = useCallback(
     async function fetchWeather() {
-      if (location.length < 2) return setDailyWeather({})
+      if (location.length < 2) return reset()
       try {
         setIsLoading(true)
         // 1) Getting location (geocoding)
@@ -137,7 +143,7 @@ export default function App() {
         setIsLoading(false)
       }
     },
-    [location]
+    [location, reset]
   )
 
   useEffect(
@@ -151,11 +157,14 @@ export default function App() {
   return (
     <div className="app">
       <h1>
-        <span>🌤️</span>Functional Weather
+        <span>🌤️</span>Weather Calendar
       </h1>
       <input type="text" value={location} onChange={e => setLocation(e.target.value)} placeholder="Search for location" />
       <button onClick={handleLocation} className="btn">
-        <span>📌</span>My Location
+        <span>
+          <img className="location-icon" src="/location-icon.png" alt="location-icon" />
+        </span>
+        My location
       </button>
       {isLoading && <p className="loader">Loading...</p>}
       <div>

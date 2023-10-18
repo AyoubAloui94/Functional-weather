@@ -74,6 +74,13 @@ input:focus {
   outline: 2px solid #222;
 }
 
+.location-icon {
+  height: 25px;
+  width: 25px;
+  margin-bottom: -5px;
+  margin-right: 5px;
+}
+
 .today {
   display: flex;
   border-radius: 15px;
@@ -216,10 +223,10 @@ input:focus {
   font-size: inherit;
   font-family: inherit;
   padding: 1rem;
-  border-radius: 15px;
+  border-radius: 25px;
   border: none;
-  font-weight: 600;
-  background-color: #92f793;
+  font-weight: 400;
+  background-color: #c2eef8;
 
   vertical-align: center;
   cursor: pointer;
@@ -227,7 +234,7 @@ input:focus {
 }
 
 .btn:hover {
-  background-color: #60d561;
+  background-color: #7bdef4;
   transition-duration: 0.5s;
 }
 
@@ -309,7 +316,7 @@ input:focus {
   }
 
   .day p {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
 
   .container {
