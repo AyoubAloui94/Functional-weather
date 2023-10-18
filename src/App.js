@@ -232,12 +232,14 @@ function HourlyWeather({ weather }) {
 }
 
 function Hour({ hour, code, temperature, windSpeed, isNow }) {
+  const timeDisplay = isNow ? "Now" : new Date(hour).toTimeString().slice(0, 5) !== "00:00" ? new Date(hour).toTimeString().slice(0, 5) : new Date(hour).toLocaleDateString("fr-FR").slice(0, 5)
+
   return (
     <li className="hour">
       <span>{getWeatherIcon(code)}</span>
       <p>{Math.round(temperature)}&deg;</p>
       <p>{windSpeed} km/h</p>
-      <p>{isNow ? "Now" : new Date(hour).toTimeString().slice(0, 5)}</p>
+      <p>{timeDisplay}</p>
     </li>
   )
 }
