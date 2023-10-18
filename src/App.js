@@ -120,7 +120,12 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant&current=temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index&hourly=temperature_2m,weathercode,windspeed_10m&forecast_days=14`)
+        const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index"
+        const hourlyQuery = "temperature_2m,weathercode,windspeed_10m"
+        const DailyQuery = "weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant"
+        const forecastDays = window.screen.width <= 480 ? 15 : 14
+
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=${DailyQuery}&current=${currentQuery}&hourly=${hourlyQuery}&forecast_days=${forecastDays}`)
         const weatherData = await weatherRes.json()
         // console.log(weatherData.hourly)
         setDailyWeather(weatherData.daily)
