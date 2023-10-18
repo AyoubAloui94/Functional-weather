@@ -191,37 +191,37 @@ function Today({ weather }) {
 
       <div className="params-container">
         <div className="today--params">
-          <p className="test">
+          <p className="param">
             <span>Temperature</span>
-            <span className="test--t">{Math.round(temperature)}&deg;</span>
+            <span className="param--value">{Math.round(temperature)}&deg;</span>
           </p>
-          <p className="test">
+          <p className="param">
             <span>Humidity</span>
-            <span className="test--t">{humidity}%</span>
+            <span className="param--value">{humidity}%</span>
           </p>
-          <p className="test">
+          <p className="param">
             <span>Real feel</span>
-            <span className="test--t">{Math.round(realFeel)}&deg;</span>
+            <span className="param--value">{Math.round(realFeel)}&deg;</span>
           </p>
-          <p className="test">
+          <p className="param">
             <span>Wind</span>
-            <span className="test--t">
+            <span className="param--value">
               {getWindDirection(windDirection)} {windSpeed} km/h
             </span>
           </p>
         </div>
         <div className="today--params">
-          <p className="test">
+          <p className="param">
             <span>Pressure</span>
-            <span className="test--t">{Math.round(pressure)} mbar</span>
+            <span className="param--value">{Math.round(pressure)} mbar</span>
           </p>
-          <p className="test">
+          <p className="param">
             <span>Chance of rain</span>
-            <span className="test--t">{chanceOfRain}%</span>
+            <span className="param--value">{chanceOfRain}%</span>
           </p>
-          <p className="test">
+          <p className="param">
             <span>UV index</span>
-            <span className="test--t">{Math.round(uvIndex)}</span>
+            <span className="param--value">{Math.round(uvIndex)}</span>
           </p>
         </div>
       </div>

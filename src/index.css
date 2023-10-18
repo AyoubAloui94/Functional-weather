@@ -111,12 +111,12 @@ input:focus {
   cursor: pointer;
 }
 
-.test {
+.param {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.test--t {
+.param--value {
   text-align: right;
 }
 
@@ -341,16 +341,16 @@ input:focus {
     cursor: pointer;
   }
 
-  .test {
+  .param {
     display: grid;
     grid-template-columns: 2fr 3fr;
   }
 
-  .test span {
+  .param span {
     font-size: 1.2rem;
   }
 
-  .test--t {
+  .param--value {
     text-align: right;
     font-size: 1.4rem !important;
     margin-top: -2px;
@@ -399,7 +399,7 @@ input:focus {
     display: flex;
     overflow: auto;
     flex-direction: row;
-    width: 37rem;
+    width: 37.8rem;
     padding-bottom: 1rem;
     margin-bottom: 2rem;
   }
