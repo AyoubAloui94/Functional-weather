@@ -349,22 +349,8 @@ input:focus {
     overflow: auto;
     flex-direction: row;
     width: 37rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
     margin-bottom: 2rem;
-  }
-
-  .container::-webkit-scrollbar {
-    height: 10px;
-  }
-
-  .container::-webkit-scrollbar-track {
-    background: rgb(214, 214, 214);
-    border-radius: 20px;
-  }
-
-  .container::-webkit-scrollbar-thumb {
-    background-color: rgb(180, 180, 180);
-    border-radius: 20px;
   }
 
   .hourly {
