@@ -300,6 +300,7 @@ input:focus {
 
     gap: 1.2rem;
     cursor: pointer;
+    font-size: 1.6rem;
   }
 
   .weather-icon {
