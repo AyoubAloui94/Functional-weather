@@ -140,6 +140,7 @@ input:focus {
 .weather-icon--today {
   font-size: 7rem;
   margin-top: -10px;
+  margin-left: 2.2rem;
 }
 
 /* .weather {
@@ -274,6 +275,18 @@ input:focus {
   background: conic-gradient(#0000 10%, white);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: rotate 1.5s infinite linear;
+}
+
+.status-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.current-status {
+  text-align: center;
+  margin-top: 1rem;
+  margin-left: 4rem;
+  line-height: 3rem;
 }
 
 @keyframes rotate {

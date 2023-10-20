@@ -64,6 +64,24 @@ function getWeatherIcon(wmoCode) {
   return icons.get(arr)
 }
 
+function getWeatherStatus(wmoCode) {
+  const icons = new Map([
+    [[0], "Clear"],
+    [[1], "Partly cloudy"],
+    [[2], "Mostly cloudy"],
+    [[3], "Cloudy"],
+    [[45, 48], "Fog"],
+    [[51, 56, 61, 66, 80], "Showers"],
+    [[53, 55, 63, 65, 57, 67, 81, 82], "Rain"],
+    [[71, 73, 75, 77, 85, 86], "Snow"],
+    [[95], "Thunderstorm"],
+    [[96, 99], "Thunderstorm/Rain"]
+  ])
+  const arr = [...icons.keys()].find(key => key.includes(wmoCode))
+  if (!arr) return "NOT FOUND"
+  return icons.get(arr)
+}
+
 function convertToFlag(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -127,7 +145,7 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index"
+        const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index,visibility,rain"
         const hourlyQuery = "temperature_2m,weathercode,windspeed_10m,is_day"
         const DailyQuery = "weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant"
         const forecastDays = window.screen.width <= 480 ? 15 : 14
@@ -140,6 +158,7 @@ export default function App() {
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
         setHourlyWeather(weatherData.hourly)
+        console.log(weatherData)
         setAqi(aqiData.current)
       } catch (err) {
         console.error(err)
@@ -177,7 +196,7 @@ export default function App() {
           {dailyWeather.weathercode?.length && (
             <>
               <h2>{displayLocation}</h2>
-              <Today weather={currentWeather} aqi={aqi} />
+              <Today weather={currentWeather} aqi={aqi} max={dailyWeather.temperature_2m_max[0]} min={dailyWeather.temperature_2m_min[0]} />
               <HourlyWeather weather={hourlyWeather} />
               <DailyWeather weather={dailyWeather} />
             </>
@@ -188,15 +207,22 @@ export default function App() {
   )
 }
 
-function Today({ weather, aqi }) {
-  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel } = weather
+function Today({ weather, aqi, max, min }) {
+  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel, visibility } = weather
   const { european_aqi } = aqi
   return (
     <div className="today">
       {/* <Clock /> */}
-      <p>Now</p>
-      <span className="weather-icon--today">{getWeatherIcon(weathercode)}</span>
-
+      <div className="status-container">
+        <span>Now</span>
+        <span className="weather-icon--today">{getWeatherIcon(weathercode)}</span>
+        <div className="current-status">
+          <p>{getWeatherStatus(weathercode)}</p>{" "}
+          <p>
+            {Math.round(max)}&deg;/{Math.round(min)}&deg;
+          </p>
+        </div>
+      </div>
       <div className="params-container">
         <div className="today--params">
           <p className="param">
@@ -216,6 +242,10 @@ function Today({ weather, aqi }) {
             <span className="param--value">
               {getWindDirection(windDirection)} {windSpeed} km/h
             </span>
+          </p>
+          <p className="param">
+            <span>Visibility</span>
+            <span className="param--value">{visibility >= 1000 ? `${Math.round(visibility / 1000)} km` : `${visibility} m`}</span>
           </p>
         </div>
         <div className="today--params">
