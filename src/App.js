@@ -145,14 +145,14 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index,visibility,rain"
+        const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,snow_depth,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index,visibility"
         const hourlyQuery = "temperature_2m,weathercode,windspeed_10m,is_day"
         const DailyQuery = "weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant"
         const forecastDays = window.screen.width <= 480 ? 15 : 14
 
         const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=${DailyQuery}&current=${currentQuery}&hourly=${hourlyQuery}&forecast_days=${forecastDays}`)
         const weatherData = await weatherRes.json()
-
+        if (weatherData.error) throw new Error("Invalid location")
         const aqiRes = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=european_aqi`)
         const aqiData = await aqiRes.json()
         setDailyWeather(weatherData.daily)
@@ -161,7 +161,7 @@ export default function App() {
         console.log(weatherData)
         setAqi(aqiData.current)
       } catch (err) {
-        console.error(err)
+        console.log(err)
       } finally {
         setIsLoading(false)
       }
@@ -208,7 +208,7 @@ export default function App() {
 }
 
 function Today({ weather, aqi, max, min }) {
-  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel, visibility } = weather
+  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel, visibility, rain, showers, snow_depth } = weather
   const { european_aqi } = aqi
   return (
     <div className="today">
@@ -247,6 +247,12 @@ function Today({ weather, aqi, max, min }) {
             <span>Visibility</span>
             <span className="param--value">{visibility >= 1000 ? `${Math.round(visibility / 1000)} km` : `${visibility} m`}</span>
           </p>
+          {showers > 0 && (
+            <p className="param">
+              <span>Showers</span>
+              <span className="param--value">{showers} mm</span>
+            </p>
+          )}
         </div>
         <div className="today--params">
           <p className="param">
@@ -261,6 +267,18 @@ function Today({ weather, aqi, max, min }) {
             <span>UV index</span>
             <span className="param--value">{Math.round(uvIndex)}</span>
           </p>
+          {snow_depth > 0 && (
+            <p className="param">
+              <span>Snow Depth</span>
+              <span className="param--value">{snow_depth * 100} cm</span>
+            </p>
+          )}
+          {rain > 0 && (
+            <p className="param">
+              <span>Rain</span>
+              <span className="param--value">{rain} mm</span>
+            </p>
+          )}
           <p className="param">
             <span>AQI</span>
             <span className="param--value">{european_aqi}</span>
