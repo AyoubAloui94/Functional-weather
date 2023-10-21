@@ -214,7 +214,7 @@ function Today({ weather, aqi, max, min }) {
     <div className="today">
       {/* <Clock /> */}
       <div className="status-container">
-        <span>Now</span>
+        <span className="now">Now</span>
         <span className="weather-icon--today">{getWeatherIcon(weathercode)}</span>
         <div className="current-status">
           <p>{getWeatherStatus(weathercode)}</p>{" "}
@@ -259,7 +259,7 @@ function Today({ weather, aqi, max, min }) {
             <span>Pressure</span>
             <span className="param--value">{Math.round(pressure)} mbar</span>
           </p>
-          <p className="param">
+          <p className="param param--t">
             <span>Chance of rain</span>
             <span className="param--value">{chanceOfRain}%</span>
           </p>

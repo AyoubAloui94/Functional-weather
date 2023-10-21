@@ -120,6 +120,10 @@ input:focus {
   text-align: right;
 }
 
+.param--t {
+  grid-template-columns: 3fr 2fr;
+}
+
 .today--params {
   border-radius: 15px;
   background-color: #c2eef8;
@@ -279,14 +283,14 @@ input:focus {
 
 .status-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr;
 }
 
 .current-status {
   text-align: center;
-  margin-top: 1rem;
-  margin-left: 4rem;
-  line-height: 3rem;
+  margin-top: 0.4rem;
+  margin-left: 4.5rem;
+  line-height: 2.5rem;
 }
 
 @keyframes rotate {
@@ -355,6 +359,13 @@ input:focus {
   }
 */
 
+  .now {
+    text-align: center;
+    margin-top: 1rem;
+    margin-right: 0rem;
+    line-height: 2.5rem;
+  }
+
   .params-container {
     display: grid;
     border-radius: 15px;
@@ -369,7 +380,11 @@ input:focus {
 
   .param {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 2fr 4fr;
+  }
+
+  .param--t {
+    grid-template-columns: 3fr 2fr;
   }
 
   .param span {
@@ -379,7 +394,7 @@ input:focus {
   .param--value {
     text-align: right;
     font-size: 1.4rem !important;
-    margin-top: -2px;
+    margin-top: 0;
   }
 
   .today--params {
