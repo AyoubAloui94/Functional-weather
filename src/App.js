@@ -82,6 +82,42 @@ function getWeatherStatus(wmoCode) {
   return icons.get(arr)
 }
 
+function getWeatherIconDay(wmoCode) {
+  const icons = new Map([
+    [[0], "/imgs/day_clear.png"],
+    [[1], "/imgs/day_partial_cloud.png"],
+    [[2], "/imgs/day_partial_cloud.png"],
+    [[3], "/imgs/cloudy.png"],
+    [[45, 48], "/imgs/fog.png"],
+    [[51, 56, 61, 66, 80], "/imgs/day_rain.png"],
+    [[53, 55, 63, 65, 57, 67, 81, 82], "/imgs/rain.png"],
+    [[71, 73, 75, 77, 85, 86], "/imgs/snow.png"],
+    [[95], "/imgs/thunder.png"],
+    [[96, 99], "/imgs/rain_thunder.png"]
+  ])
+  const arr = [...icons.keys()].find(key => key.includes(wmoCode))
+  if (!arr) return "NOT FOUND"
+  return icons.get(arr)
+}
+
+function getWeatherIconNight(wmoCode) {
+  const icons = new Map([
+    [[0], "/imgs/night_half_moon_clear.png"],
+    [[1], "/imgs/night_half_moon_partial_cloud.png"],
+    [[2], "/imgs/night_half_moon_partial_cloud.png"],
+    [[3], "/imgs/cloudy.png"],
+    [[45, 48], "/imgs/fog.png"],
+    [[51, 56, 61, 66, 80], "/imgs/night_half_moon_rain.png"],
+    [[53, 55, 63, 65, 57, 67, 81, 82], "/imgs/rain.png"],
+    [[71, 73, 75, 77, 85, 86], "/imgs/snow.png"],
+    [[95], "/imgs/thunder.png"],
+    [[96, 99], "/imgs/rain_thunder.png"]
+  ])
+  const arr = [...icons.keys()].find(key => key.includes(wmoCode))
+  if (!arr) return "NOT FOUND"
+  return icons.get(arr)
+}
+
 function convertToFlag(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -145,7 +181,7 @@ export default function App() {
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
 
         // 2) Getting actual weather
-        const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,snow_depth,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index,visibility"
+        const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,snow_depth,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index,visibility,is_day"
         const hourlyQuery = "temperature_2m,weathercode,windspeed_10m,is_day"
         const DailyQuery = "weathercode,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant"
         const forecastDays = window.screen.width <= 480 ? 15 : 14
@@ -158,7 +194,7 @@ export default function App() {
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
         setHourlyWeather(weatherData.hourly)
-        console.log(weatherData)
+        // console.log(weatherData.daily)
         setAqi(aqiData.current)
       } catch (err) {
         console.log(err)
@@ -208,14 +244,15 @@ export default function App() {
 }
 
 function Today({ weather, aqi, max, min }) {
-  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel, visibility, rain, showers, snow_depth } = weather
+  const { weathercode, relativehumidity_2m: humidity, temperature_2m: temperature, windspeed_10m: windSpeed, pressure_msl: pressure, winddirection_10m: windDirection, precipitation_probability: chanceOfRain, uv_index: uvIndex, apparent_temperature: realFeel, visibility, rain, showers, snow_depth, is_day: isDay } = weather
   const { european_aqi } = aqi
+
   return (
     <div className="today">
       {/* <Clock /> */}
       <div className="status-container">
         <span className="now">Now</span>
-        <span className="weather-icon--today">{getWeatherIcon(weathercode)}</span>
+        <span className="weather-icon--today">{isDay === 1 ? <img src={getWeatherIconDay(weathercode)} alt={weathercode} /> : <img src={getWeatherIconNight(weathercode)} alt={weathercode} />}</span>
         <div className="current-status">
           <p>{getWeatherStatus(weathercode)}</p>{" "}
           <p>
@@ -290,13 +327,14 @@ function Today({ weather, aqi, max, min }) {
 }
 
 function HourlyWeather({ weather }) {
-  const { weathercode, time, temperature_2m, windspeed_10m } = weather
+  const { weathercode, time, temperature_2m, windspeed_10m, is_day } = weather
 
   const index = time.findIndex(hour => new Date().toISOString() < new Date(hour).toISOString())
   const hours = time.slice(index - 1, index + 23)
   const codes = weathercode.slice(index - 1, index + 23)
   const temperatures = temperature_2m.slice(index - 1, index + 23)
   const windSpeeds = windspeed_10m.slice(index - 1, index + 23)
+  const isDay = is_day.slice(index - 1, index + 23)
 
   return (
     <>
@@ -304,7 +342,7 @@ function HourlyWeather({ weather }) {
       <div className="container">
         <div className="hourly">
           {hours.map((hour, i) => (
-            <Hour key={hour} hour={hour} code={codes.at(i)} temperature={temperatures.at(i)} windSpeed={windSpeeds.at(i)} isNow={i === 0} />
+            <Hour key={hour} hour={hour} code={codes.at(i)} temperature={temperatures.at(i)} windSpeed={windSpeeds.at(i)} isNow={i === 0} isDay={isDay.at(i)} />
           ))}
         </div>
       </div>
@@ -312,12 +350,12 @@ function HourlyWeather({ weather }) {
   )
 }
 
-function Hour({ hour, code, temperature, windSpeed, isNow }) {
+function Hour({ hour, code, temperature, windSpeed, isNow, isDay }) {
   const timeDisplay = isNow ? "Now" : new Date(hour).toTimeString().slice(0, 5) !== "00:00" ? new Date(hour).toTimeString().slice(0, 5) : new Date(hour).toLocaleDateString("fr-FR").slice(0, 5)
 
   return (
     <li className="hour">
-      <span>{getWeatherIcon(code)}</span>
+      <span>{isDay === 1 ? <img src={getWeatherIconDay(code)} alt={code} /> : <img src={getWeatherIconNight(code)} alt={code} />}</span>
       <p>{Math.round(temperature)}&deg;</p>
       <p>{windSpeed} km/h</p>
       <p>{timeDisplay}</p>
@@ -342,7 +380,9 @@ function DailyWeather({ weather }) {
 function Day({ date, max, min, code, isToday, rain, windSpeed, windDirection }) {
   return (
     <li className="day">
-      <span className="weather-icon">{getWeatherIcon(code)}</span>
+      <span className="weather-icon">
+        <img src={getWeatherIconDay(code)} alt={code} />
+      </span>
       <p>{isToday ? "Today" : formatDay(date)}</p>
       <p>
         {Math.round(min)}&deg; &mdash; <strong>{Math.round(max)}&deg;</strong>

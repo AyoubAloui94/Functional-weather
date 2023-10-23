@@ -4,7 +4,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  --bgColor: #9be3f3;
+  --component: #b4ebf8;
 }
+
+/* #c2eef8 #9be3f3 */
 
 html {
   font-size: 62.5%;
@@ -15,7 +19,7 @@ body {
   font-size: 2rem;
   height: auto;
   color: #222;
-  background-color: #9be3f3;
+  background-color: var(--bgColor);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +43,7 @@ li {
   border-radius: 25px;
   border: 2px solid #222;
   outline: 2px solid #222;
-  background-color: #9be3f3;
+  background-color: var(--bgColor);
   outline-offset: 1.2rem;
 }
 
@@ -86,7 +90,7 @@ input:focus {
 .today {
   display: flex;
   border-radius: 15px;
-  background-color: #c2eef8;
+  background-color: var(--component);
   padding: 1.6rem 0 2rem;
   width: 64rem;
   align-self: center;
@@ -102,7 +106,7 @@ input:focus {
 .params-container {
   display: grid;
   border-radius: 15px;
-  background-color: #c2eef8;
+  background-color: var(--component);
 
   width: auto;
 
@@ -126,7 +130,7 @@ input:focus {
 
 .today--params {
   border-radius: 15px;
-  background-color: #c2eef8;
+  background-color: var(--component);
   padding: 1rem 1rem 1rem 1rem;
   width: 30rem;
 
@@ -141,10 +145,21 @@ input:focus {
   font-size: 5.2rem;
 }
 
+.weather-icon img {
+  width: 64px;
+  height: 64px;
+}
+
 .weather-icon--today {
-  font-size: 7rem;
+  font-size: 5rem;
   margin-top: -10px;
+  margin-bottom: -10px;
   margin-left: 2.2rem;
+}
+
+.weather-icon--today img {
+  width: 128px;
+  height: 128px;
 }
 
 /* .weather {
@@ -185,7 +200,7 @@ input:focus {
 
 .hour {
   border-radius: 15px;
-  background-color: #c2eef8;
+  background-color: var(--component);
   padding: 1rem 0 2rem;
   width: 10rem;
   display: flex;
@@ -200,6 +215,12 @@ input:focus {
   font-size: 3rem;
 }
 
+.hour img {
+  width: 30px;
+  height: 30px;
+  margin-bottom: -10px;
+}
+
 .weather {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -210,7 +231,7 @@ input:focus {
 
 .day {
   border-radius: 15px;
-  background-color: #c2eef8;
+  background-color: var(--component);
   padding: 1.6rem 0 2rem;
   width: 15.5rem;
 
@@ -219,6 +240,10 @@ input:focus {
   align-items: center;
   gap: 1.2rem;
   cursor: pointer;
+}
+
+.day .weather-icon img {
+  margin-bottom: -12px;
 }
 
 .weather-icon {
@@ -246,7 +271,7 @@ input:focus {
   border-radius: 25px;
   border: none;
   font-weight: 400;
-  background-color: #c2eef8;
+  background-color: var(--component);
 
   vertical-align: center;
   cursor: pointer;
@@ -277,6 +302,7 @@ input:focus {
   height: 6rem;
   border-radius: 50%;
   background: conic-gradient(#0000 10%, white);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: rotate 1.5s infinite linear;
 }
@@ -333,7 +359,7 @@ input:focus {
   .today {
     display: flex;
     border-radius: 15px;
-    background-color: #c2eef8;
+    background-color: var(--component);
     padding: 1.6rem 0 2rem;
     width: 37.8rem;
     align-self: center;
@@ -369,7 +395,7 @@ input:focus {
   .params-container {
     display: grid;
     border-radius: 15px;
-    background-color: #c2eef8;
+    background-color: var(--component);
 
     width: auto;
 
@@ -399,7 +425,7 @@ input:focus {
 
   .today--params {
     border-radius: 15px;
-    background-color: #c2eef8;
+    background-color: var(--component);
     padding: 1rem 1rem 1rem 1rem;
     width: 17.9rem;
 
@@ -453,7 +479,7 @@ input:focus {
 
   .hour {
     border-radius: 15px;
-    background-color: #c2eef8;
+    background-color: var(--component);
     padding: 0.8rem 0.5rem;
     width: 9rem;
     display: flex;
