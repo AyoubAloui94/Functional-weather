@@ -50,7 +50,7 @@ export default function App() {
         if (!geoData.results) throw new Error("Location not found")
 
         const { latitude, longitude, timezone, name, country_code } = geoData.results.at(0)
-        setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
+        setDisplayLocation(`${name === "Revel" ? "Tallinn" : name} ${convertToFlag(country_code)}`)
         setTimezone(timezone)
         // 2) Getting actual weather
         const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,snow_depth,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index,visibility,is_day"
