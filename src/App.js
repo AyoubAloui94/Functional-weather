@@ -15,6 +15,7 @@ export default function App() {
   const [currentWeather, setCurrentWeather] = useState({})
   const [hourlyWeather, setHourlyWeather] = useState({})
   const [aqi, setAqi] = useState("")
+  const [timezone, setTimezone] = useState("")
 
   function handleLocation() {
     if (!navigator.geolocation) return
@@ -50,7 +51,7 @@ export default function App() {
 
         const { latitude, longitude, timezone, name, country_code } = geoData.results.at(0)
         setDisplayLocation(`${name} ${convertToFlag(country_code)}`)
-
+        setTimezone(timezone)
         // 2) Getting actual weather
         const currentQuery = "temperature_2m,apparent_temperature,relativehumidity_2m,precipitation,rain,showers,snow_depth,weathercode,pressure_msl,windspeed_10m,winddirection_10m,winddirection_10m,precipitation_probability,uv_index,visibility,is_day"
         const hourlyQuery = "temperature_2m,weathercode,windspeed_10m,is_day"
@@ -100,11 +101,11 @@ export default function App() {
         </button>
         {isLoading && <Loader />}
         <div>
-          {dailyWeather.weathercode?.length && (
+          {dailyWeather.weathercode?.length && location.length >= 2 && (
             <>
               <h2>{displayLocation}</h2>
               <Today weather={currentWeather} aqi={aqi} max={dailyWeather.temperature_2m_max[0]} min={dailyWeather.temperature_2m_min[0]} />
-              <HourlyWeather weather={hourlyWeather} />
+              <HourlyWeather weather={hourlyWeather} timezone={timezone} />
               <DailyWeather weather={dailyWeather} />
             </>
           )}
@@ -197,10 +198,12 @@ function Today({ weather, aqi, max, min }) {
   )
 }
 
-function HourlyWeather({ weather }) {
+function HourlyWeather({ weather, timezone }) {
   const { weathercode, time, temperature_2m, windspeed_10m, is_day } = weather
 
-  const index = time.findIndex(hour => new Date().toISOString() < new Date(hour).toISOString())
+  const index = time.findIndex(hour => new Date().toLocaleString("fr-FR", { timeZone: timezone }) < new Date(hour).toLocaleString("fr-FR"))
+
+  // const index = time.findIndex(hour => new Date().toISOString() < new Date(hour).toISOString()) : uses device time
   const hours = time.slice(index - 1, index + 23)
   const codes = weathercode.slice(index - 1, index + 23)
   const temperatures = temperature_2m.slice(index - 1, index + 23)
