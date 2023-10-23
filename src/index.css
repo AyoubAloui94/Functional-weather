@@ -4,8 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --bgColor: #9be3f3;
-  --component: #b4ebf8;
+  --bgColor: #81e4fb;
+  --component: #a2e9f9;
 }
 
 /* #c2eef8 #9be3f3 */
@@ -371,6 +371,13 @@ input:focus {
     cursor: pointer;
     padding: 2rem;
   }
+
+  .weather-icon--today img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: -10px;
+    margin-top: 10px;
+  }
   /*
   .params-container {
     display: grid;
@@ -453,8 +460,8 @@ input:focus {
     font-size: 1.6rem;
   } */
 
-  .weather-icon {
-    font-size: 4.2rem;
+  .day .weather-icon img {
+    margin-bottom: -5px;
   }
 
   .day p {
