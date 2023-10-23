@@ -4,8 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --bgColor: #81e4fb;
-  --component: #a2e9f9;
+  --bgColor: #9be3f3;
+  --component: #c2eef8;
 }
 
 /* #c2eef8 #9be3f3 */
@@ -45,6 +45,10 @@ li {
   outline: 2px solid #222;
   background-color: var(--bgColor);
   outline-offset: 1.2rem;
+}
+
+img {
+  filter: contrast(140%);
 }
 
 h1 {
