@@ -104,6 +104,7 @@ export default function App() {
           {dailyWeather.weathercode?.length && location.length >= 2 && (
             <>
               <h2>{displayLocation}</h2>
+              <Clock timezone={timezone} />
               <Today weather={currentWeather} aqi={aqi} max={dailyWeather.temperature_2m_max[0]} min={dailyWeather.temperature_2m_min[0]} />
               <HourlyWeather weather={hourlyWeather} timezone={timezone} />
               <DailyWeather weather={dailyWeather} />
@@ -277,15 +278,15 @@ function Loader() {
   )
 }
 
-function Clock() {
-  const [time, setTime] = useState(new Date())
+function Clock({ timezone }) {
+  const [time, setTime] = useState(new Date().toLocaleTimeString("fr-FR", { timeZone: timezone }))
 
   useEffect(
     function () {
-      const intervalId = setInterval(() => setTime(new Date()), 1000)
+      const intervalId = setInterval(() => setTime(new Date().toLocaleTimeString("fr-FR", { timeZone: timezone })), 1000)
       return () => clearInterval(intervalId)
     },
-    [time]
+    [time, timezone]
   )
-  return <span className="clock">{time.toLocaleTimeString("fr-FR")}</span>
+  return <div className="clock">Local time: {time}</div>
 }

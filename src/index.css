@@ -156,7 +156,7 @@ input:focus {
 
 .weather-icon--today {
   font-size: 5rem;
-  margin-top: -10px;
+  margin-top: 5px;
   margin-bottom: -10px;
   margin-left: 2.2rem;
 }
@@ -288,9 +288,10 @@ input:focus {
 }
 
 .clock {
-  position: relative;
-  float: right;
-  margin: 3px 20px auto auto;
+  width: 100%;
+  padding: 0 2rem;
+  text-align: center;
+  margin-top: -2rem;
   font-size: 1.5rem;
 }
 
