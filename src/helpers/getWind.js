@@ -18,10 +18,9 @@ function getWindDirection(direction) {
     [[326.25, 348.75], "NNW"]
   ])
 
-  const modulatedDirection = direction <= 348.75 ? direction : direction - 360
-
+  const modulatedDirection = direction < 348.75 && direction > -11.25 ? direction : direction < -11.25 ? 360 + direction : 360 - direction
   const arr = [...windDirections.keys()].find(key => key[0] <= modulatedDirection && modulatedDirection <= key[1])
-  if (!arr) return "NOT FOUND"
+  if (!arr) return ""
   return windDirections.get(arr)
 }
 

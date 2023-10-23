@@ -66,7 +66,7 @@ export default function App() {
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
         setHourlyWeather(weatherData.hourly)
-        console.log(weatherData.current)
+        // console.log(weatherData.current)
         setAqi(aqiData.current)
       } catch (err) {
         console.log(err)
