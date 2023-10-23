@@ -65,7 +65,7 @@ export default function App() {
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
         setHourlyWeather(weatherData.hourly)
-        // console.log(weatherData.daily)
+        console.log(weatherData.current)
         setAqi(aqiData.current)
       } catch (err) {
         console.log(err)
@@ -155,12 +155,6 @@ function Today({ weather, aqi, max, min }) {
             <span>Visibility</span>
             <span className="param--value">{visibility >= 1000 ? `${Math.round(visibility / 1000)} km` : `${visibility} m`}</span>
           </p>
-          {showers > 0 && (
-            <p className="param">
-              <span>Showers</span>
-              <span className="param--value">{showers} mm</span>
-            </p>
-          )}
         </div>
         <div className="today--params">
           <p className="param">
@@ -179,6 +173,12 @@ function Today({ weather, aqi, max, min }) {
             <p className="param">
               <span>Snow Depth</span>
               <span className="param--value">{snow_depth * 100} cm</span>
+            </p>
+          )}
+          {showers > 0 && (
+            <p className="param">
+              <span>Showers</span>
+              <span className="param--value">{showers} mm</span>
             </p>
           )}
           {rain > 0 && (
