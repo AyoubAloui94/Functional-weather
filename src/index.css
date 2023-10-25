@@ -155,10 +155,10 @@ input:focus {
 }
 
 .weather-icon--today {
+  text-align: center;
   font-size: 5rem;
   margin-top: 5px;
   margin-bottom: -10px;
-  margin-left: 2.2rem;
 }
 
 .weather-icon--today img {
@@ -247,6 +247,7 @@ input:focus {
 }
 
 .day .weather-icon img {
+  position: relative;
   margin-bottom: -12px;
 }
 
@@ -317,10 +318,16 @@ input:focus {
   grid-template-columns: 2fr 2fr 2fr;
 }
 
+.now {
+  position: relative;
+  margin-right: 3rem;
+}
+
 .current-status {
+  position: relative;
   text-align: center;
   margin-top: 0.4rem;
-  margin-left: 4.5rem;
+  margin-left: 2rem;
   line-height: 2.5rem;
 }
 
@@ -342,7 +349,7 @@ input:focus {
     word-spacing: 0;
   }
   .app {
-    width: 40rem;
+    width: 37rem;
     border: none;
     outline: none;
     padding: 2rem 0;
@@ -400,8 +407,12 @@ input:focus {
   .now {
     text-align: center;
     margin-top: 1rem;
-    margin-right: 0rem;
+    margin-right: 3rem;
     line-height: 2.5rem;
+  }
+
+  .current-status {
+    margin-left: 0;
   }
 
   .params-container {

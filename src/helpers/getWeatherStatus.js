@@ -9,7 +9,7 @@ function getWeatherStatus(wmoCode) {
     [[53, 55, 63, 65, 57, 67, 81, 82], "Rain"],
     [[71, 73, 75, 77, 85, 86], "Snow"],
     [[95], "Thunderstorm"],
-    [[96, 99], "Thunderstorm/Rain"]
+    [[96, 99], "Thunderstorm & Rain"]
   ])
   const arr = [...icons.keys()].find(key => key.includes(wmoCode))
   if (!arr) return "NOT FOUND"

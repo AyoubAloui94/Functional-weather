@@ -122,7 +122,6 @@ function Today({ weather, aqi, max, min }) {
 
   return (
     <div className="today">
-      {/* <Clock /> */}
       <div className="status-container">
         <span className="now">Now</span>
         <span className="weather-icon--today">{isDay === 1 ? <img src={getWeatherIconDay(weathercode)} alt={weathercode} /> : <img src={getWeatherIconNight(weathercode)} alt={weathercode} />}</span>
@@ -204,7 +203,6 @@ function HourlyWeather({ weather, timezone }) {
 
   const index = time.findIndex(hour => new Date().toLocaleString("fr-FR", { timeZone: timezone }) < new Date(hour).toLocaleString("fr-FR"))
 
-  // const index = time.findIndex(hour => new Date().toISOString() < new Date(hour).toISOString()) : uses device time
   const hours = time.slice(index - 1, index + 23)
   const codes = weathercode.slice(index - 1, index + 23)
   const temperatures = temperature_2m.slice(index - 1, index + 23)
