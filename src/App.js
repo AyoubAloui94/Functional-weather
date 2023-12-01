@@ -162,7 +162,7 @@ function Today({ weather, aqi, max, min }) {
             <span>Pressure</span>
             <span className="param--value">{Math.round(pressure)} mbar</span>
           </p>
-          <p className="param param--t">
+          <p className="param">
             <span>Chance of rain</span>
             <span className="param--value">{chanceOfRain}%</span>
           </p>
@@ -171,7 +171,7 @@ function Today({ weather, aqi, max, min }) {
             <span className="param--value">{Math.round(uvIndex)}</span>
           </p>
           {snow_depth > 0 && (
-            <p className="param param--t">
+            <p className="param">
               <span>Snow Depth</span>
               <span className="param--value">{snow_depth * 100} cm</span>
             </p>
