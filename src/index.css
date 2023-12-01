@@ -390,7 +390,7 @@ input:focus {
   }
 
   .status-container {
-    gap: 5rem;
+    gap: 2rem;
   }
 
   .weather-icon--today {
@@ -418,12 +418,14 @@ input:focus {
 */
 
   .now {
-    margin-right: 3rem;
-    line-height: 2.5rem;
+    margin-right: 5rem;
+    font-size: 1.7rem;
   }
 
   .current-status {
     margin-left: 0;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
   }
 
   .params-container {

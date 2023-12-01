@@ -66,7 +66,7 @@ export default function App() {
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
         setHourlyWeather(weatherData.hourly)
-
+        console.log(weatherData)
         setAqi(aqiData.current)
       } catch (err) {
         console.log(err)
@@ -202,6 +202,7 @@ function HourlyWeather({ weather, timezone }) {
   const { weathercode, time, temperature_2m, windspeed_10m, is_day } = weather
 
   const index = time.findIndex(hour => new Date(new Date().toLocaleString(navigator.languages[0], { timeZone: timezone })) < new Date(new Date(hour).toLocaleString(navigator.languages[0])))
+  console.log(index)
 
   const hours = time.slice(index - 1, index + 23)
   const codes = weathercode.slice(index - 1, index + 23)
