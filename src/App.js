@@ -66,7 +66,7 @@ export default function App() {
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
         setHourlyWeather(weatherData.hourly)
-        console.log(weatherData)
+
         setAqi(aqiData.current)
       } catch (err) {
         console.log(err)
@@ -201,7 +201,7 @@ function Today({ weather, aqi, max, min }) {
 function HourlyWeather({ weather, timezone }) {
   const { weathercode, time, temperature_2m, windspeed_10m, is_day } = weather
 
-  const index = time.findIndex(hour => new Date().toLocaleString("fr-FR", { timeZone: timezone }) < new Date(hour).toLocaleString("fr-FR"))
+  const index = time.findIndex(hour => new Date(new Date().toLocaleString(navigator.languages[0], { timeZone: timezone })) < new Date(new Date(hour).toLocaleString(navigator.languages[0])))
 
   const hours = time.slice(index - 1, index + 23)
   const codes = weathercode.slice(index - 1, index + 23)
@@ -224,7 +224,7 @@ function HourlyWeather({ weather, timezone }) {
 }
 
 function Hour({ hour, code, temperature, windSpeed, isNow, isDay }) {
-  const timeDisplay = isNow ? "Now" : new Date(hour).toTimeString().slice(0, 5) !== "00:00" ? new Date(hour).toTimeString().slice(0, 5) : new Date(hour).toLocaleDateString("fr-FR").slice(0, 5)
+  const timeDisplay = isNow ? "Now" : new Date(hour).toTimeString().slice(0, 5) !== "00:00" ? new Date(hour).toLocaleTimeString(navigator.languages[0], { hour: "numeric", minute: "numeric" }) : new Date(hour).toLocaleDateString(navigator.languages[0], { month: "2-digit", day: "2-digit" })
 
   return (
     <li className="hour">
@@ -277,11 +277,11 @@ function Loader() {
 }
 
 function Clock({ timezone }) {
-  const [time, setTime] = useState(new Date().toLocaleTimeString("fr-FR", { timeZone: timezone }))
+  const [time, setTime] = useState(new Date().toLocaleTimeString(navigator.languages[0], { timeZone: timezone }))
 
   useEffect(
     function () {
-      const intervalId = setInterval(() => setTime(new Date().toLocaleTimeString("fr-FR", { timeZone: timezone })), 1000)
+      const intervalId = setInterval(() => setTime(new Date().toLocaleTimeString(navigator.languages[0], { timeZone: timezone })), 1000)
       return () => clearInterval(intervalId)
     },
     [time, timezone]
