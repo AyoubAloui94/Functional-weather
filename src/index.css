@@ -390,18 +390,16 @@ input:focus {
   }
 
   .status-container {
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .weather-icon--today {
-    margin-left: 0rem;
+    padding-right: 0.5rem;
   }
 
   .weather-icon--today img {
     width: 100px;
     height: 100px;
-    margin-bottom: -10px;
-    margin-top: 10px;
   }
   /*
   .params-container {
@@ -418,14 +416,13 @@ input:focus {
 */
 
   .now {
-    margin-right: 5rem;
     font-size: 1.7rem;
   }
 
   .current-status {
-    margin-left: 0;
     font-size: 1.4rem;
     line-height: 1.8rem;
+    width: 10rem;
   }
 
   .params-container {

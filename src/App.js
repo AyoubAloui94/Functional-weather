@@ -173,7 +173,7 @@ function Today({ weather, aqi, max, min }) {
           {snow_depth > 0 && (
             <p className="param">
               <span>Snow Depth</span>
-              <span className="param--value">{snow_depth * 100} cm</span>
+              <span className="param--value">{Math.round(snow_depth * 100)} cm</span>
             </p>
           )}
           {showers > 0 && (
