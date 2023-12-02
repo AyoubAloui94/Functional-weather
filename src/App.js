@@ -66,7 +66,7 @@ export default function App() {
         setDailyWeather(weatherData.daily)
         setCurrentWeather(weatherData.current)
         setHourlyWeather(weatherData.hourly)
-        console.log(weatherData)
+        // console.log(weatherData)
         setAqi(aqiData.current)
       } catch (err) {
         console.log(err)
@@ -128,7 +128,7 @@ function Today({ weather, aqi, max, min }) {
         <div className="current-status">
           <p>{getWeatherStatus(weathercode)}</p>{" "}
           <p>
-            {Math.round(max)}&deg;/{Math.round(min)}&deg;
+            {Math.ceil(max)}&deg;/{Math.floor(min)}&deg;
           </p>
         </div>
       </div>
@@ -163,7 +163,7 @@ function Today({ weather, aqi, max, min }) {
             <span className="param--value">{Math.round(pressure)} mbar</span>
           </p>
           <p className="param">
-            <span>Chance of rain</span>
+            <span>{temperature < 0 ? "Chance of snow" : "Chance of rain"}</span>
             <span className="param--value">{chanceOfRain}%</span>
           </p>
           <p className="param">
@@ -202,7 +202,6 @@ function HourlyWeather({ weather, timezone }) {
   const { weathercode, time, temperature_2m, windspeed_10m, is_day } = weather
 
   const index = time.findIndex(hour => new Date(new Date().toLocaleString(navigator.languages[0], { timeZone: timezone })) < new Date(new Date(hour).toLocaleString(navigator.languages[0])))
-  console.log(index)
 
   const hours = time.slice(index - 1, index + 23)
   const codes = weathercode.slice(index - 1, index + 23)
@@ -264,7 +263,9 @@ function Day({ date, max, min, code, isToday, rain, windSpeed, windDirection }) 
       <p>
         <span className="wind-direction">{getWindDirectionArrow(windDirection)}</span> {windSpeed} km/h
       </p>
-      <p>Rain: {rain !== null ? `${rain}%` : "--"}</p>
+      <p>
+        {(min + max) / 2 < 0 ? "Snow" : "Rain"}: {rain !== null ? `${rain}%` : "--"}
+      </p>
     </li>
   )
 }
