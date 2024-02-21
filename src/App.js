@@ -22,7 +22,7 @@ export default function App() {
 
     navigator.geolocation.getCurrentPosition(async pos => {
       try {
-        const res = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&apiKey=0adca2d9af08410eb2ed71dda2243bb4`)
+        const res = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`)
         const data = await res.json()
         if (!data) throw new Error("Something went wrong, please try again later.")
         setLocation(data.features.at(0).properties.city)
