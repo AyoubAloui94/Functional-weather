@@ -39,12 +39,12 @@ export default function App() {
   }, [])
 
   const fetchWeather = useCallback(
-    async function fetchWeather() {
+    async function fetchWeather(controller) {
       if (location.length < 2) return reset()
       try {
         setIsLoading(true)
         // 1) Getting location (geocoding)
-        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}`)
+        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}`, { signal: controller.signal })
         const geoData = await geoRes.json()
 
         if (!geoData.results) throw new Error("Location not found")
@@ -79,8 +79,11 @@ export default function App() {
 
   useEffect(
     function () {
-      fetchWeather()
+      const controller = new AbortController()
+      fetchWeather(controller)
       localStorage.setItem("location", location)
+
+      return () => controller.abort()
     },
     [fetchWeather, location]
   )
